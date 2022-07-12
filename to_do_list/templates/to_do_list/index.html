@@ -98,7 +98,7 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="tab-pane fade show active" id="nav-unchecked" role="tabpanel" aria-labelledby="nav-unchecked-tab" tabindex="0">
+                <div class="tab-pane fade" id="nav-unchecked" role="tabpanel" aria-labelledby="nav-unchecked-tab" tabindex="0">
                     <ul class="list-group pt-3">
                         {% for todo in todo_items reversed %}
                             {% if todo.status == False %}
@@ -122,7 +122,6 @@
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="nav-checked" role="tabpanel" aria-labelledby="nav-checked-tab" tabindex="0">
-                    <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabindex="0">
                     <ul class="list-group pt-3">
                         {% for todo in todo_items reversed%}
                             {% if todo.status == True %}
@@ -145,7 +144,6 @@
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="nav-due" role="tabpanel" aria-labelledby="nav-due-tab" tabindex="0">
-                    <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabindex="0">
                     <ul class="list-group pt-3">
                         {% for todo in todo_items reversed %}
                         <li class="list-group-item">
@@ -180,7 +178,6 @@
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="nav-created" role="tabpanel" aria-labelledby="nav-created-tab" tabindex="0">
-                    <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabindex="0">
                     <ul class="list-group pt-3">
                         {% for todo in todo_items reversed %}
                         <li class="list-group-item">
