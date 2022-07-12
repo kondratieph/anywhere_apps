@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Изменить задачу{% endblock %}
+
+{% block header %}
+
+<div class="container-fluid">
+    <div class="row pt-5 ">
+        <div class="col-12 text-primary text-center">
+        <h1><b>Изменить задачу</b></h1>
+        </div>
+    </div>
+</div>
+
+{% endblock header %}
+
+{% block main %}
+
+{% comment %} <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> {% endcomment %}
+
+
+<div class="container-fluid mb-3">
+        <div class="row justify-content-center">
+            <div class="col-9">
+                <form action="{% url 'todo:edit_todo' todo.id %}" method="POST">
+                    {% csrf_token %}
+                <div class="d-flex">
+                            <label for="id_title"></label>
+                            <input type="text" name="title" class="form-control me-2" id="id_title" value="{{ todo.title }}">
+                            <label for="due_date"></label>
+                            <input type="date" class="form-control me-2 d-none" name="due_date" id="due_date" value="{{ todo.due_date|date:"Y-m-d" }}">
+                            <label class="input-group-addon btn btn-outline-primary me-2" for="due_date" id="due_date" title="Установить дату">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
+                                    <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                </svg>
+                                {% comment %} <span class="fa fa-calendar" for="due_date" id="due_date"></span> {% endcomment %}
+                            </label>
+                            <button type="submit" class="btn btn-primary"><b>Обновить</b></button>
+                            </div>
+                                                        <label for="id_status class="form-check-label pt-2 for="id_status">
+                            <input class="form-check-input" name="status" type="checkbox" id="id_status" {% if todo.status %} checked="checked" {% endif %}">
+                            &nbsp;Выполнено
+                            
+                </form>
+            </div>
+        </div>
+</div>
+
+{% endblock main %}  
+    
+
+
+{% comment %} 
+Удалённый чекбокс:
+<input type="checkbox" class="me-2" name="status" id="id_status">
+                <label for="id_status"></label>
+{% endcomment %}
