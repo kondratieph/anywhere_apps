@@ -58,4 +58,7 @@ def delete_todo(request, pk):
 
 
 def test(request):
-    return render(request, 'to_do_list/test.html')
+    todo_items = ToDo.objects.all()
+    return render(request, 'to_do_list/test.html', {'todo_items': todo_items})
+
+
