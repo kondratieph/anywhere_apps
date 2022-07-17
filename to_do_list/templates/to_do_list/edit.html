@@ -27,7 +27,7 @@
                             <label for="id_title"></label>
                             <input type="text" name="title" class="form-control me-2" id="id_title" value="{{ todo.title }}">
                             <label for="due_date"></label>
-                            <input type="date" class="form-control me-2 d-none" name="due_date" id="due_date" value="{{ todo.due_date|date:"Y-m-d" }}">
+                            <input type="date" class="form-control" name="due_date" id="due_date" value="{{ todo.due_date|date:"Y-m-d" }}" style="visibility: hidden; width: 1px; padding: 0;">
                             <label class="input-group-addon btn btn-outline-primary me-2" for="due_date" id="due_date" title="Установить дату">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
                                     <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>

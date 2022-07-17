@@ -30,7 +30,7 @@
 
                     <input class="form-control me-2" type="text" name="title" placeholder="Введите задачу...">
                     <label for="due_date"></label>
-                    <input type="date" class="form-control d-none" name="due_date" id="due_date">
+                    <input type="date" class="form-control" name="due_date" id="due_date" style="visibility: hidden; width: 1px; padding: 0;">
                     <label class="input-group-addon btn btn-outline-primary me-2" type="image/x-icon" for="due_date" id="due_date" title="Установить дату">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
                             <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
@@ -95,6 +95,10 @@
                                 <img src="{% static 'bootstrap/img/trash-fill.svg' %}" width="16" height="16"></a>
                             {% endif %}
                         </li>
+                        {% empty %}
+                            <div class="text-primary">
+                                <h3><b>Похоже, здесь ничего нет</b></h3>
+                            </div>
                         {% endfor %}
                     </ul>
                 </div>
@@ -116,14 +120,19 @@
                                 <a href="{% url 'todo:delete_todo' todo.id %}" title="Удалить" class="text-decoration-none" style="float:right">
                                 <img src="{% static 'bootstrap/img/trash-fill.svg' %}" width="16" height="16"></a>
                                 
-                            </li>
+                            </li>  
                             {% endif %}
                         {% endfor %}
                     </ul>
+                    {% if not unchecked %}
+                        <div class="text-primary">
+                        <h3><b>Похоже, здесь ничего нет</b></h3>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="tab-pane fade" id="nav-checked" role="tabpanel" aria-labelledby="nav-checked-tab" tabindex="0">
                     <ul class="list-group pt-3">
-                        {% for todo in todo_items %}
+                        {% for todo in todo_items reversed %}
                             {% if todo.status == True %}
                             <li class="list-group-item">
                                 
@@ -142,6 +151,11 @@
                             {% endif %}
                         {% endfor %}
                     </ul>
+                    {% if not checked %}
+                        <div class="text-primary">
+                        <h3><b>Похоже, здесь ничего нет</b></h3>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="tab-pane fade" id="nav-due" role="tabpanel" aria-labelledby="nav-due-tab" tabindex="0">
                     <ul class="list-group pt-3">
@@ -166,6 +180,11 @@
                             {% endif %}
                         {% endfor %}
                     </ul>
+                    {% if not dated %}
+                        <div class="text-primary">
+                        <h3><b>Похоже, здесь ничего нет</b></h3>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

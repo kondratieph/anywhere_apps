@@ -21,159 +21,38 @@
 
 
 
-<div class="container-fluid mb-3">
-    <div class="row justify-content-center">
-        <div class="col-9">
-            <form action="{% url 'todo:add_todo' %}" class="d-flex" method="POST" role="toolbar">
-                {% csrf_token %}
-                
+<div class="container mb-3">
+    {% comment %} {{ False|yesno:"yeah,no,maybe" }}
+    <br/><br/><br/> {% endcomment %}
+    <small>{{ todo_items}}</small>
+    <br/>
+    Список 1
+    {{ unchecked }}
+    <br/>
+    Список 2
+    {{ checked }}
+    <br/>
+    {% if not unchecked %}
+        No unchecked
+    {% endif %}
+    <br/>
+    {% if not checked %}
+        No checked
+    {% endif %}
 
-                    <input class="form-control me-2" type="text" name="title" placeholder="Введите задачу...">
-                    <label for="due_date"></label>
-                    <input type="date" class="form-control d-none" name="due_date" id="due_date">
-                    <label class="input-group-addon btn btn-outline-primary me-2" type="image/x-icon" for="due_date" id="due_date" title="Установить дату">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
-                            <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
-                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                        </svg>
-                    
-                    </label>
 
-                    
 
-                
-                <button type="submit" class="btn btn-primary"><b>Добавить</b></button>
-            </form>
-        </div>
-    </div>
-</div>
+   
+
+
+                        
+                                
+                            
+                           
+                            
+
+
+
+    
 
 {% endblock main %}
-
-{% block todo_items %}
-
-<div class="container-fluid">
-    <div class="row pt-2 justify-content-center">
-        <div class="col-9">
-            <nav>
-                <div class="nav nav-pills" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">Всё</button>
-                    <button class="nav-link" id="nav-unchecked-tab" data-bs-toggle="tab" data-bs-target="#nav-unchecked" type="button" role="tab" aria-controls="nav-unchecked" aria-selected="false">Не выполнено</button>
-                    <button class="nav-link" id="nav-checked-tab" data-bs-toggle="tab" data-bs-target="#nav-checked" type="button" role="tab" aria-controls="nav-checked" aria-selected="false">Выполнено</button>
-                    <button class="nav-link" id="nav-due-tab" data-bs-toggle="tab" data-bs-target="#nav-due" type="button" role="tab" aria-controls="nav-due" aria-selected="false">По дате</button>
-                </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabindex="0">
-                    <ul class="list-group pt-3">
-                        {% for todo in todo_items reversed %}
-                        <li class="list-group-item">
-                            {% if todo.status == False%}
-
-                                <a href="{% url 'todo:change_status' todo.id %}" title="Отметить как выполнено" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/square.svg' %}" width="16" height="16"></a>
-                                </a>&nbsp;
-
-                                <item><strong>{{ todo.title }}</strong></item>{% if todo.due_date %}&nbsp;<span class="badge bg-primary">{{ todo.due_date }}</span>{% endif %}&nbsp;
-
-                                <a href="{% url 'todo:edit_todo' todo.id %}" title="Изменить" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/pencil-fill.svg' %}" width="16" height="16"></a>
-
-                                <a href="{% url 'todo:delete_todo' todo.id %}" title="Удалить" class="text-decoration-none" style="float:right">
-                                <img src="{% static 'bootstrap/img/trash-fill.svg' %}" width="16" height="16"></a>
-
-                            {% else %}
-                                <a href="{% url 'todo:change_status' todo.id %}" title="Отметить как невыполнено" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/check-square.svg' %}" width="16" height="16"></a>
-                                </a>&nbsp;
-                                <item class="text-black-50"><strong>{{ todo.title }}</strong></item>&nbsp;
-
-                                <a href="{% url 'todo:edit_todo' todo.id %}" title="Изменить" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/pencil-fill.svg' %}" width="16" height="16"></a>
-
-                                <a href="{% url 'todo:delete_todo' todo.id %}" title="Удалить" class="text-decoration-none" style="float:right">
-                                <img src="{% static 'bootstrap/img/trash-fill.svg' %}" width="16" height="16"></a>
-                            {% endif %}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="tab-pane fade" id="nav-unchecked" role="tabpanel" aria-labelledby="nav-unchecked-tab" tabindex="0">
-                    <ul class="list-group pt-3">
-                        {% for todo in todo_items reversed %}
-                            {% if todo.status == False %}
-                            <li class="list-group-item">
-                                
-                                <a href="{% url 'todo:change_status' todo.id %}" title="Отметить как выполнено" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/square.svg' %}" width="16" height="16"></a>
-                                </a>&nbsp;
-
-                                <item><strong>{{ todo.title }}</strong></item>{% if todo.due_date %}&nbsp;<span class="badge bg-primary">{{ todo.due_date }}</span>{% endif %}&nbsp;
-
-                                <a href="{% url 'todo:edit_todo' todo.id %}" title="Изменить" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/pencil-fill.svg' %}" width="16" height="16"></a>
-
-                                <a href="{% url 'todo:delete_todo' todo.id %}" title="Удалить" class="text-decoration-none" style="float:right">
-                                <img src="{% static 'bootstrap/img/trash-fill.svg' %}" width="16" height="16"></a>
-                                
-                            </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="tab-pane fade" id="nav-checked" role="tabpanel" aria-labelledby="nav-checked-tab" tabindex="0">
-                    <ul class="list-group pt-3">
-                        {% for todo in todo_items %}
-                            {% if todo.status == True %}
-                            <li class="list-group-item">
-                                
-                                <a href="{% url 'todo:change_status' todo.id %}" title="Отметить как невыполнено" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/check-square.svg' %}" width="16" height="16"></a>
-                                </a>&nbsp;
-                                <item class="text-black-50"><strong>{{ todo.title }}</strong></item>&nbsp;
-
-                                <a href="{% url 'todo:edit_todo' todo.id %}" title="Изменить" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/pencil-fill.svg' %}" width="16" height="16"></a>
-
-                                <a href="{% url 'todo:delete_todo' todo.id %}" title="Удалить" class="text-decoration-none" style="float:right">
-                                <img src="{% static 'bootstrap/img/trash-fill.svg' %}" width="16" height="16"></a>
-                                
-                            </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="tab-pane fade" id="nav-due" role="tabpanel" aria-labelledby="nav-due-tab" tabindex="0">
-                    <ul class="list-group pt-3">
-                        {% for todo in todo_items|order_by:"due_date" %}
-                            {% if todo.due_date and todo.status == False %}
-                                
-                            <li class="list-group-item">
-                                
-                                <a href="{% url 'todo:change_status' todo.id %}" title="Отметить как выполнено" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/square.svg' %}" width="16" height="16"></a>
-                                </a>&nbsp;
-
-                                <item><strong>{{ todo.title }}</strong></item>{% if todo.due_date %}&nbsp;<span class="badge bg-primary">{{ todo.due_date }}</span>{% endif %}&nbsp;
-
-                                <a href="{% url 'todo:edit_todo' todo.id %}" title="Изменить" class="text-decoration-none">
-                                <img src="{% static 'bootstrap/img/pencil-fill.svg' %}" width="16" height="16"></a>
-
-                                <a href="{% url 'todo:delete_todo' todo.id %}" title="Удалить" class="text-decoration-none" style="float:right">
-                                <img src="{% static 'bootstrap/img/trash-fill.svg' %}" width="16" height="16"></a>
-                                
-                            </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<br>
-<br>
-
-{% endblock todo_items %}

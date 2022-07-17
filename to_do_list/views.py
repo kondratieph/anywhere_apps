@@ -11,7 +11,11 @@ def index(request):
         new_todo = ToDo(title = request.POST['title'])
         new_todo.save()
         redirect('todo:index')
-    return render(request, 'to_do_list/index.html', {'todo_items': todo_items})
+    unchecked = todo_items.filter(status=False)
+    checked = todo_items.filter(status=True)
+    dated =  todo_items.exclude(status=True).filter(due_date__isnull=False)
+    return render(request, 'to_do_list/index.html',
+    {'todo_items': todo_items, 'unchecked': unchecked, 'checked': checked, 'dated': dated})
 
 
 def add_todo(request):
@@ -59,6 +63,9 @@ def delete_todo(request, pk):
 
 def test(request):
     todo_items = ToDo.objects.all()
-    return render(request, 'to_do_list/test.html', {'todo_items': todo_items})
+    unchecked = todo_items.filter(status=False)
+    checked = todo_items.filter(status=True)
+    dated =  todo_items.filter(due_date__isnull=True)
+    return render(request, 'to_do_list/test.html', {'todo_items': todo_items, 'unchecked': unchecked, 'checked': checked, 'dated': dated})
 
 
