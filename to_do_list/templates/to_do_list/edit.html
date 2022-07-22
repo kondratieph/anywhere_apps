@@ -25,7 +25,7 @@
                     {% csrf_token %}
                 <div class="d-flex">
                             <label for="id_title"></label>
-                            <input type="text" name="title" class="form-control me-2" id="id_title" value="{{ todo.title }}">
+                            <input type="text" name="title" class="form-control me-2" id="id_title" value="{{ todo.title|capfirst }}">
                             <label for="due_date"></label>
                             <input type="date" class="form-control" name="due_date" id="due_date" value="{{ todo.due_date|date:"Y-m-d" }}" style="visibility: hidden; width: 1px; padding: 0;">
                             <label class="input-group-addon btn btn-outline-primary me-2" for="due_date" id="due_date" title="Установить дату">
@@ -46,12 +46,4 @@
         </div>
 </div>
 
-{% endblock main %}  
-    
-
-
-{% comment %} 
-Удалённый чекбокс:
-<input type="checkbox" class="me-2" name="status" id="id_status">
-                <label for="id_status"></label>
-{% endcomment %}
+{% endblock main %}

@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect, HttpResponse
 from .models import ToDo
 from .forms import ToDoForm
 from django.contrib import messages
-from django.utils.safestring import mark_safe
-# Последнее - для messages
 
 def index(request):
     todo_items = ToDo.objects.all()
@@ -20,28 +18,35 @@ def index(request):
 
 def add_todo(request):
     if request.method == 'POST':
+        title = request.POST['title']
         form = ToDoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('todo:index')
+        elif len(title) > 80:
+            messages.error(request, 'Текст вашей задачи слишком длинный (максимум: 80 символов)!')
         else:
-            messages.error(request, 'Вы ничего не написали, так нельзя!')
-            return redirect('todo:index')
+            messages.error(request, 'Вы ничего не написали!')
+        return redirect('todo:index')
     else:
-        messages.error(request, 'Похоже, что-то случилось!')
-        return render(request, 'todo:index')
+        form = ToDoForm()
+    return render(request, 'to_do_list/index.html', {'form': form})
 
 
 def edit_todo(request, pk):
     todo = ToDo.objects.get(pk=pk)
     form = ToDoForm(request.POST or None, instance=todo)
     if request.method == 'POST':
-        list_of_input_ids=request.POST.getlist('status')
+        title = request.POST['title']
         if form.is_valid():
             form.save()
             return redirect('todo:index')
+        elif len(title) > 80:
+            messages.error(request, 'Текст вашей задачи слишком длинный (максимум: 80 символов)!')
         else:
-            messages.error(request, mark_safe('Вы ничего не написали, так нельзя! Если так и задумано, <a href="/app/do/" class="text-decoration-none"><b>можете вернуться</b></a> назад!'))
+            messages.error(request, 'Вы ничего не написали!')
+
+    else:
+        form = ToDoForm()
     return render(request, 'to_do_list/edit.html', {'todo': todo, 'form': form})
 
 
@@ -61,11 +66,11 @@ def delete_todo(request, pk):
     return redirect('todo:index')
 
 
-def test(request):
-    todo_items = ToDo.objects.all()
-    unchecked = todo_items.filter(status=False)
-    checked = todo_items.filter(status=True)
-    dated =  todo_items.filter(due_date__isnull=True)
-    return render(request, 'to_do_list/test.html', {'todo_items': todo_items, 'unchecked': unchecked, 'checked': checked, 'dated': dated})
+# def test(request):
+#     todo_items = ToDo.objects.all()
+#     unchecked = todo_items.filter(status=False)
+#     checked = todo_items.filter(status=True)
+#     dated =  todo_items.filter(due_date__isnull=True)
+#     return render(request, 'to_do_list/test.html', {'todo_items': todo_items, 'unchecked': unchecked, 'checked': checked, 'dated': dated})
 
 
