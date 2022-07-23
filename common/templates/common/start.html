@@ -5,11 +5,22 @@ Hmmm...
 {% endblock %}
 
 {% block main %}
-Блок собственно стартовой страницы
-<br>
-<a href="http://127.0.0.1:8000/app/do/">Посмотрите мой ту-ду-лист!</a>
 
-<h1><a href="http://127.0.0.1:8000/app/do/test">Тэстовая</a></h1>
+<div class="container-fluid">
+    <div class="row pt-5 mb-4">
+        <div class="col-12 text-primary text-center">
+            <h1>Блок собственно стартовой страницы</h1>
+        </div>
+    </div>
+    <div class="row pt-2 mb-4">
+            <div class="col-12 text-center">
+                <a href="http://127.0.0.1:8000/app/do/">Посмотрите мой ту-ду-лист!</a>
+                <br/>
+                <a href="http://127.0.0.1:8000/test">Тестовая</a>
+            </div>
+    </div>
+</div>
+    
 
 {% endblock main %}
 

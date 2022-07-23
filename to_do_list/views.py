@@ -54,6 +54,7 @@ def change_status(request, pk):
     todo_item = ToDo.objects.get(id=pk)
     if todo_item.status == False:
         todo_item.status = True
+        todo_item.due_date = None
     else:
         todo_item.status = False
     todo_item.save()
@@ -64,13 +65,3 @@ def delete_todo(request, pk):
     todo_item = ToDo.objects.get(id=pk)
     todo_item.delete()
     return redirect('todo:index')
-
-
-# def test(request):
-#     todo_items = ToDo.objects.all()
-#     unchecked = todo_items.filter(status=False)
-#     checked = todo_items.filter(status=True)
-#     dated =  todo_items.filter(due_date__isnull=True)
-#     return render(request, 'to_do_list/test.html', {'todo_items': todo_items, 'unchecked': unchecked, 'checked': checked, 'dated': dated})
-
-

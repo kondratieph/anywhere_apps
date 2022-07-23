@@ -44,11 +44,6 @@
 
                 
                 <button type="submit" class="btn btn-primary"><b>Добавить</b></button>
-                {% comment %} {% if field.errors %}
-                    {% for error in field.errors %}
-                        {{error}}
-                    {% endfor %}
-                {% endif %} {% endcomment %}
             </form>
         </div>
     </div>
@@ -165,7 +160,7 @@
                 </div>
                 <div class="tab-pane fade" id="nav-due" role="tabpanel" aria-labelledby="nav-due-tab" tabindex="0">
                     <ul class="list-group pt-3">
-                        {% if  todo.status == False %}
+                        {% comment %} {% if  todo.status == False %} {% endcomment %}
                             {% for todo in todo_items|order_by:"due_date" %}
                                 {% if todo.due_date and todo.status == False %}
                                     
@@ -186,7 +181,7 @@
                                 </li>
                                 {% endif %}
                             {% endfor %}
-                        {% endif %}
+                        {% comment %} {% endif %} {% endcomment %}
                     </ul>
                     {% if not dated %}
                         <div class="text-primary">
