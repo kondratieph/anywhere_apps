@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from .models import ToDo
 from .forms import ToDoForm
 from django.contrib import messages
