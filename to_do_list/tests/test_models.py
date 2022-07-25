@@ -1,24 +1,30 @@
 from django.test import TestCase
+from to_do_list.models import ToDo
+import datetime
 
-class YourTestClass(TestCase):
+class ToDoTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        print("setUpTestData: Run once to set up non-modified data for all class methods.")
-        pass
+        ToDo.objects.create(title='Untitled Task', status='False', due_date=datetime.date(2023, 7, 14))
 
-    def setUp(self):
-        print("setUp: Run once for every test method to setup clean data.")
-        pass
+    def test_title_label(self):
+        todo_item = ToDo.objects.get(id=1)
+        field_label = todo_item._meta.get_field('title').verbose_name
+        self.assertEquals(field_label, 'title')
 
-    def test_false_is_false(self):
-        print("Method: test_false_is_false.")
-        self.assertFalse(False)
+    def test_status_label(self):
+        todo_item = ToDo.objects.get(id=1)
+        field_label = todo_item._meta.get_field('status').verbose_name
+        self.assertEquals(field_label, 'status')
 
-    def test_false_is_true(self):
-        print("Method: test_false_is_true.")
-        self.assertTrue(False)
 
-    def test_one_plus_one_equals_two(self):
-        print("Method: test_one_plus_one_equals_two.")
-        self.assertEqual(1 + 1, 2)
+    def test_date_label(self):
+        todo_item = ToDo.objects.get(id=1)
+        field_label = todo_item._meta.get_field('due_date').verbose_name
+        self.assertEquals(field_label, 'due date')
+
+    def test_title_max_length(self):
+        todo_item = ToDo.objects.get(id=1)
+        max_length = todo_item._meta.get_field('title').max_length
+        self.assertEquals(max_length, 80)
