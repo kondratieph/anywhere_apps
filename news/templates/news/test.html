@@ -8,9 +8,16 @@
 <div class="container-fluid mb-3">
   <div class="row">
     <div class="col-md-2 pt-3">
-        {% include 'inc/_sidebar.html' %}
+        <div class="list-group">
+            {% get_list_categories as categories %}
+            {% for item in categories %}
+            <a href="{% url 'news:category' item.pk %}" class="list-group-item list-group-item-action">{{ item.title }}
+            <span class="badge bg-primary rounded-pill">{{ item.cnt }}</span>
+            </a>
+            {% endfor%}
+        </div>
     </div>
-    <div class="col-md-10 pt-3">
+    <div class="col pt-3">
         <div class="row row-cols-1 row-cols-md-4 g-4">
             {% for item in news %}
                 <div class="col">
@@ -34,7 +41,7 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>
+            </div>
     </div>
   </div>
 </div>
