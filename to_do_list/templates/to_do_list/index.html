@@ -3,7 +3,7 @@
 {% load todo_extras %}
 
 
-{% block title %}Список задач{% endblock %}
+{% block title %}Список задач :: {{ block.super }} {% endblock %}
 
 {% block header %}
 
@@ -49,7 +49,7 @@
     </div>
 </div>
 
-{% endblock main %}
+{% endblock %}
 
 {% block todo_items %}
 
@@ -86,7 +86,7 @@
                             {% else %}
                                 <a href="{% url 'todo:change_status' todo.id %}" title="Отметить как невыполнено" class="text-decoration-none">
                                 <img src="{% static 'bootstrap/img/check-square.svg' %}" width="16" height="16"></a>
-                                </a>
+                                </a>&nbsp;
                                 <item class="text-black-50"><strong>{{ todo.title|capfirst }}</strong></item>&nbsp;
 
                                 <a href="{% url 'todo:edit_todo' todo.id %}" title="Изменить" class="text-decoration-none">
@@ -196,4 +196,4 @@
 <br>
 <br>
 
-{% endblock todo_items %}
+{% endblock %}
