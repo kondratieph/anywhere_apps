@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.db.models import F
 # Create your models here.
 
 
@@ -17,10 +18,12 @@ class News(models.Model):
     is_published = models.BooleanField(default=True, verbose_name='Публикация?')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория')
     # views = models.IntegerField(default=0)
+    # counter = models.PositiveIntegerField(default=0)
+    view_count = models.IntegerField(default=0)
 
 
-    # def get_absolute_url(self):
-    #     return reverse('news:index', kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('news:view_news', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title
@@ -29,6 +32,11 @@ class News(models.Model):
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
         ordering = ['-created_at']
+
+    def incrementViewCount(self):
+        self.view_count += 1
+        self.save()
+
 
 class Category(models.Model):
     title = models.CharField(max_length=150, db_index=True, verbose_name='Название категории')

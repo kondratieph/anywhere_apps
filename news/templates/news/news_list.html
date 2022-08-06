@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load news_tags %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ title }} :: {{ block.super }} {% endblock %}
 
 {% block main %}
 
@@ -22,7 +22,7 @@
                     {% endif %}
                     <div class="card-body">
                         <a href="{{ item.get_absolute_url }}" class="card-title text-primary text-center" style="text-decoration: none"><h5><b>{{ item.title }}</b></h5></a>
-                        {% comment %} <h5 class="card-title text-primary text-center"><b>{{ item.title }}</b></h5> {% endcomment %}
+                        <small class="text-muted">{{ item.created_at|timesince}} назад</small>
                         <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:16 }}</p>
                         <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Дальше...</a>
                     </div>
@@ -30,7 +30,7 @@
                         <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
                         </br>
                         {% comment %} <small class="text-muted">{{ item.created_at|date:"d E Y \г\. \в H:i"}}</small> {% endcomment %}
-                        <small class="text-muted">{{ item.created_at|timesince}} назад</small>
+                        <small class="text-muted">{{ item.view_count}} просмотров</small>
                     </div>
                     </div>
                 </div>

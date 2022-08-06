@@ -5,10 +5,16 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="{% url 'todo:index' %}"><b>To Do List</b></a>
-        <a class="nav-link active" aria-current="page" href="{% url 'news:index' %}"><b>News</b></a>
-      </div>
+        <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="{% url 'todo:index' %}"><b>To Do List</b></a>
+            <a class="nav-link active" aria-current="page" href="{% url 'news:home' %}"><b>News</b></a>
+            {% if news or news_item %}
+                {% if request.user.is_authenticated %}
+                    <a class="nav-link active" aria-current="page" href="{% url 'news:add_news' %}"><b>Добавить новость</b></a>
+                {% endif %}
+            {% endif %}
+        </div>
+      
     </div>
   </div>
 </nav>
