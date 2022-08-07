@@ -13,8 +13,11 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'news:add_news' %}"><b>Добавить новость</b></a>
                 {% endif %}
             {% endif %}
-        </div>
-      
+        </div>      
     </div>
+    <span class="navbar-text">
+            <a href="{% url 'news:login' %}"><b>Войти</b></a> | <a href="{% url 'news:register' %}"><b>Регистрация</b></a>
+        </span>
+    </span>
   </div>
 </nav>

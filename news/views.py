@@ -2,8 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.http import HttpResponse
 from news.models import News, Category
-from news.forms import NewsForm
+from news.forms import NewsForm, UserRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import login, logout
 
 class HomeNews(ListView):
     model = News
@@ -97,6 +100,25 @@ class CreateNews(LoginRequiredMixin, CreateView):
     form_class = NewsForm
     template_name = 'news/news_create.html'
     raise_exception = True
+
+def register(request):
+    title = 'Регистрация'
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Вы успешно зарегистрировались!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Ошибка регистрации!')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'news/news_register.html', {'title': title, 'form': form})
+
+def login(request):
+    title = 'Войти в приложение'
+    return render(request, 'news/news_login.html', {'title': title})
 
 
 def test(request):

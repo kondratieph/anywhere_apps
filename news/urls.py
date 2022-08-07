@@ -13,6 +13,9 @@ urlpatterns = [
     path('<int:pk>/', ViewNews.as_view(), name='view_news'),
     # path('add-news/', views.add_news, name="add_news"),
     path('add-news/', CreateNews.as_view(), name="add_news"),
+    path('register/', views.register, name="register"),
+    path('login/', views.login, name="login"),
+
 
 
     # TO DELETE BELOW!
