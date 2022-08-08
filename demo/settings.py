@@ -144,3 +144,5 @@ EMAIL_HOST_PASSWORD = "iawnhedgbysidmme"
 # EMAIL_HOST_PASSWORD = "9py9CWQxdZvNhHv"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
