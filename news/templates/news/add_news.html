@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load news_tags %}
+
+{% block title %}Добавление новости{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid mb-3">
+  <div class="row">
+    <div class="col-md-2 pt-3">
+        {% include 'inc/_sidebar.html' %}
+    </div>
+    <div class="col-md-6 pt-3 container-fluid">
+                <div class="col">
+                    <h1><b>Добавление новости</b></h1>
+                    <form action="{% url 'news:add_news' %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <br>
+                        <button type="submit" class="btn btn-primary btn-block">Добавить новость</button>
+                    </form>
+                </div>
+    </div>
+  </div>
+</div>
+    
+{% endblock %}

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Изменить задачу{% endblock %}
 
+
+{% block title %}Изменить задачу :: {{ block.super }}{% endblock %}
+{% block css%}{% endblock %}
 {% block header %}
 
 <div class="container-fluid">
@@ -11,7 +13,7 @@
     </div>
 </div>
 
-{% endblock header %}
+{% endblock %}
 
 {% block main %}
 
@@ -43,4 +45,4 @@
         </div>
 </div>
 
-{% endblock main %}
+{% endblock %}

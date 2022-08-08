@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load news_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid mb-3">
+  <div class="row">
+    <div class="col-md-2 pt-3">
+        <div class="list-group">
+            {% get_list_categories as categories %}
+            {% for item in categories %}
+            <a href="{% url 'news:category' item.pk %}" class="list-group-item list-group-item-action">{{ item.title }}
+            <span class="badge bg-primary rounded-pill">{{ item.cnt }}</span>
+            </a>
+            {% endfor%}
+        </div>
+    </div>
+    <div class="col pt-3">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for item in news %}
+                <div class="col">
+                    <div class="card h-100">
+                    {% if item.photo %}
+                    <img src="{{ item.photo.url }}" alt="" class="mr-3">
+                    {% else %}
+                    <img src="https://i.imgur.com/tJU73ey.png" alt="" class="mr-3">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title text-primary text-center"><b>{{ item.title }}</b></h5>
+                        <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:16 }}</p>
+                        <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Дальше...</a>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
+                        </br>
+                        {% comment %} <small class="text-muted">{{ item.created_at|date:"d E Y \г\. \в H:i"}}</small> {% endcomment %}
+                        <small class="text-muted">{{ item.created_at|timesince}} назад</small>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+    </div>
+  </div>
+</div>
+    
+{% endblock %}

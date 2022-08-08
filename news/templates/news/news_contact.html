@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load news_tags %}
+
+{% block title %}{{ title }} :: {{ block.super }} {% endblock %}
+
+{% block main %}
+
+<div class="container-fluid mb-3">
+  <div class="row">
+    <div class="col-md-2 pt-3">
+        {% include 'inc/_sidebar.html' %}
+    </div>
+    <div class="col-md-6 pt-3 container-fluid">
+                <div class="col">
+                    <h1><b>{{ title }}</b></h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary btn-block">Отправить</button>
+                    </form>
+                    
+                </div>
+    </div>
+  </div>
+</div>
+    
+{% endblock %}

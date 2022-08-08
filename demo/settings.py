@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'common.apps.CommonConfig',
     'to_do_list.apps.ToDoListConfig',
+    'news.apps.NewsConfig',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +129,18 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'demo/static'),
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465 # 2525 # 465 # 587
+EMAIL_HOST_USER = 'gerryknight@yandex.ru'
+EMAIL_HOST_PASSWORD = "iawnhedgbysidmme"
+# EMAIL_HOST_PASSWORD = "9py9CWQxdZvNhHv"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

@@ -1,0 +1,28 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'common:start' %}"><b>Apps</b></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="{% url 'todo:index' %}"><b>To Do List</b></a>
+            <a class="nav-link active" aria-current="page" href="{% url 'news:home' %}"><b>News</b></a>
+            {% comment %} {% if news or news_item %}
+                {% if request.user.is_authenticated %}
+                    <a class="nav-link active" aria-current="page" href="{% url 'news:add_news' %}"><b>Добавить новость</b></a>
+                {% endif %}
+            {% endif %} {% endcomment %}
+        </div>      
+    </div>
+    <span class="navbar-text">
+        {% if title or news_item.title %}
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'news:add_news' %}"><b>Написать новость, {{ user.username }}?</b></a> | <a href="{% url 'news:logout' %}"><b>Выйти</b></a>
+            {% else %}
+                <a href="{% url 'news:login' %}"><b>Войти</b></a> | <a href="{% url 'news:register' %}"><b>Регистрация</b></a>
+            {% endif %}
+        {% endif %}
+    </span>
+  </div>
+</nav>

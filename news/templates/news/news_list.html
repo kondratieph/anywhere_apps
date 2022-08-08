@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load news_tags %}
+
+{% block title %}{{ title }} :: {{ block.super }} {% endblock %}
+
+{% block main %}
+
+<div class="container-fluid mb-3">
+  <div class="row">
+    <div class="col-md-2 pt-3">
+        {% include 'inc/_sidebar.html' %}
+    </div>
+    <div class="col-md-10 pt-3">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for item in news %}
+                <div class="col">
+                    <div class="card h-100">
+                    {% if item.photo %}
+                    <img src="{{ item.photo.url }}" alt="" class="mr-3">
+                    {% else %}
+                    <img src="https://i.imgur.com/tJU73ey.png" alt="" class="mr-3">
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{{ item.get_absolute_url }}" class="card-title text-primary text-center" style="text-decoration: none"><h5><b>{{ item.title }}</b></h5></a>
+                        <small class="text-muted">{{ item.created_at|timesince}} назад</small>
+                        <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:16 }}</p>
+                        <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Дальше...</a>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
+                        </br>
+                        {% comment %} <small class="text-muted">{{ item.created_at|date:"d E Y \г\. \в H:i"}}</small> {% endcomment %}
+                        <small class="text-muted">{{ item.view_count}} просмотров</small>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+</div>
+    
+{% endblock %}

@@ -1,22 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Hmmm...
-{% endblock %}
-
 {% block main %}
 
 <div class="container-fluid">
     <div class="row pt-5 mb-4">
         <div class="col-12 text-primary text-center">
-            <h1>Блок собственно стартовой страницы</h1>
+            <h1><b>{{ title }}</b></h1>
         </div>
     </div>
     <div class="row pt-2 mb-4">
             <div class="col-12 text-center">
-                <a href="https://tieph.pythonanywhere.com/app/do/">Посмотрите мой ту-ду-лист!</a>
+                <a href="http://127.0.0.1:8000/app/do/">Приложение To Do List</a>
                 <br/>
-
+                <a href="http://127.0.0.1:8000/app/news/">Приложение News</a>
             </div>
     </div>
 </div>
