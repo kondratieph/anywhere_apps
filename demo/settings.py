@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'to_do_list.apps.ToDoListConfig',
     'news.apps.NewsConfig',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,11 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465 # 2525 # 465 # 587
+EMAIL_HOST_USER = 'gerryknight@yandex.ru'
+EMAIL_HOST_PASSWORD = "iawnhedgbysidmme"
+# EMAIL_HOST_PASSWORD = "9py9CWQxdZvNhHv"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

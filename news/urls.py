@@ -14,7 +14,10 @@ urlpatterns = [
     # path('add-news/', views.add_news, name="add_news"),
     path('add-news/', CreateNews.as_view(), name="add_news"),
     path('register/', views.register, name="register"),
-    path('login/', views.login, name="login"),
+    path('login/', views.user_login, name="login"),
+    path('logout/', views.user_logout, name="logout"),
+    path('contact/', views.contact, name='contact'),
+
 
 
 

@@ -2,11 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.http import HttpResponse
 from news.models import News, Category
-from news.forms import NewsForm, UserRegisterForm
+from news.forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.mail import send_mail
 
 class HomeNews(ListView):
     model = News
@@ -97,9 +98,15 @@ class ViewNews(DetailView):
 #     return render(request, 'news/add_news.html', {'form': form})
 
 class CreateNews(LoginRequiredMixin, CreateView):
+    title = 'Добавление новости'
     form_class = NewsForm
     template_name = 'news/news_create.html'
     raise_exception = True
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['title'] = 'Добавление новости'
+            return context
 
 def register(request):
     title = 'Регистрация'
@@ -109,16 +116,47 @@ def register(request):
             user = form.save()
             login(request, user)
             messages.success(request, 'Вы успешно зарегистрировались!')
-            return redirect('home')
+            return redirect('news:home')
         else:
             messages.error(request, 'Ошибка регистрации!')
     else:
         form = UserRegisterForm()
     return render(request, 'news/news_register.html', {'title': title, 'form': form})
 
-def login(request):
-    title = 'Войти в приложение'
-    return render(request, 'news/news_login.html', {'title': title})
+def user_login(request):
+    title = 'Вход в приложение'
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('news:home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'news/news_login.html', {'title': title, 'form': form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('news:login')
+
+
+def contact(request):
+    title = 'Обратная связь'
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'],'gerryknight@yandex.ru',
+                             ['kondratieph@gmail.com'], fail_silently=True)
+            if mail:
+                messages.success(request, 'Ваше сообщение отправлено!')
+                return redirect('news:contact')
+            else:
+                messages.error(request, 'Ошибка отправки!')
+        else:
+            messages.error(request, 'Вы ввели некорректные данные!')
+    else:
+        form = ContactForm()
+    return render(request, 'news/news_contact.html', {'form': form, 'title': title})
 
 
 def test(request):

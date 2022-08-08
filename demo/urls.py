@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('common.urls')),
     path('app/news/', include('news.urls')),
     path('app/do/', include('to_do_list.urls')),
+    path('captcha/', include('captcha.urls')),
 
 ]
 
